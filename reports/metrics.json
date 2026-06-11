@@ -1,0 +1,20 @@
+{
+  "baseline": {
+    "roc_auc": 0.745135,
+    "pr_auc": 0.497744,
+    "ks": 0.38818,
+    "gini": 0.490271,
+    "brier": 0.193497,
+    "cv_roc_auc_mean": 0.758846,
+    "cv_roc_auc_std": 0.006475
+  },
+  "lgbm": {
+    "roc_auc": 0.78113,
+    "pr_auc": 0.560478,
+    "ks": 0.428513,
+    "gini": 0.56226,
+    "brier": 0.178891,
+    "cv_roc_auc_mean": 0.785534,
+    "cv_roc_auc_std": 0.005592
+  }
+}

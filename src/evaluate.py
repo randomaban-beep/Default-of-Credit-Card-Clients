@@ -94,7 +94,12 @@ def calibrate_model(
     best_model = model
 
     for method in ["isotonic", "sigmoid"]:
-        cal = CalibratedClassifierCV(model, method=method, cv="prefit")
+        # In scikit-learn 1.4+, pass FrozenEstimator(model). In older versions, cv='prefit' is supported.
+        try:
+            from sklearn.frozen import FrozenEstimator
+            cal = CalibratedClassifierCV(FrozenEstimator(model), method=method)
+        except (ImportError, TypeError, ValueError):
+            cal = CalibratedClassifierCV(estimator=model, method=method, cv="prefit")
         cal.fit(X_val, y_val)
         b = float(brier_score_loss(y_val, cal.predict_proba(X_val)[:, 1]))
         if b < best_brier:
