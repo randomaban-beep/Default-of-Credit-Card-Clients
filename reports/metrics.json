@@ -16,5 +16,11 @@
     "brier": 0.178891,
     "cv_roc_auc_mean": 0.785534,
     "cv_roc_auc_std": 0.005592
+  },
+  "calibration": {
+    "brier_before": 0.178891,
+    "brier_after": 0.137675,
+    "method": "isotonic",
+    "improved": true
   }
 }
