@@ -44,5 +44,13 @@
       "feature": "LIMIT_BAL",
       "mean_abs_shap": 0.118217
     }
-  ]
+  ],
+  "business": {
+    "optimal_threshold": 0.39,
+    "loss_at_0.5": 0.722333,
+    "loss_at_optimal": 0.641167,
+    "loss_reduction_pct": 11.24,
+    "top_decile_capture": 0.312735,
+    "top_decile_lift": 3.1274
+  }
 }

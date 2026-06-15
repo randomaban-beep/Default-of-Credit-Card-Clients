@@ -9,11 +9,11 @@ from src.threshold import expected_loss, optimize_threshold
 def test_high_cost_fn_gives_low_threshold() -> None:
     """When FN cost >> FP cost, optimal threshold should be below 0.5."""
     rng = np.random.default_rng(42)
-    n = 1000
-    y_true = rng.integers(0, 2, n)
-    # Simulate reasonably calibrated probs
-    y_prob = np.where(y_true == 1, rng.uniform(0.5, 1.0, n), rng.uniform(0.0, 0.5, n))
-    t, _ = optimize_threshold(y_true, y_prob, cost_fn=10, cost_fp=1)
+    n = 2000
+    score = rng.normal(0, 1, n)
+    prob = 1 / (1 + np.exp(-score))
+    y_true = (rng.uniform(0, 1, n) < prob).astype(int)
+    t, _ = optimize_threshold(y_true, prob, cost_fn=10, cost_fp=1)
     assert t < 0.5, f"Expected threshold < 0.5, got {t}"
 
 
