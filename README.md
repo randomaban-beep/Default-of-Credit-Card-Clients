@@ -5,6 +5,45 @@
 This project predicts whether a credit card client will default on their next month's payment using the UCI "Default of Credit Card Clients" dataset (30,000 clients in Taiwan, 2005). The goal is not merely to rank clients by risk, but to make an explicit approve/decline decision that minimises expected business cost under a stated cost assumption: approving a defaulter costs 5× more than declining a good customer. All headline numbers are produced by code in this repository and stored in `reports/metrics.json`; no metric is hardcoded or invented.
 
 <!-- RESULTS:START -->
+
+## Results
+
+### Model Comparison
+
+| Metric | Baseline (LR) | LightGBM |
+|--------|:-------------:|:--------:|
+| ROC_AUC | 0.7451 | 0.7811 |
+| PR_AUC | 0.4977 | 0.5605 |
+| KS | 0.3882 | 0.4285 |
+| GINI | 0.4903 | 0.5623 |
+| BRIER | 0.1935 | 0.1789 |
+
+### Probability Calibration
+
+| | Brier Score |
+|---|:---:|
+| Before calibration | 0.1789 |
+| After calibration (isotonic) | 0.1377 |
+
+### Cost-Based Decision Threshold
+
+- **Optimal threshold:** 0.39 (selected on out-of-fold training predictions)
+- **Expected loss @ 0.5:** 0.7223
+- **Expected loss @ optimal:** 0.6412
+- **Loss reduction vs 0.5:** 11.2%
+- **Top-decile capture:** 31.3% of all defaults
+- **Top-decile lift:** 3.13x
+
+### Top 5 SHAP Drivers
+
+| Rank | Feature | Mean Abs SHAP |
+|:----:|---------|:-------------:|
+| 1 | months_delayed | 0.2964 |
+| 2 | max_delay | 0.2584 |
+| 3 | PAY_1 | 0.2339 |
+| 4 | credit_utilization | 0.1570 |
+| 5 | LIMIT_BAL | 0.1182 |
+
 <!-- RESULTS:END -->
 
 ## Figures
